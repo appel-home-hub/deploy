@@ -1,0 +1,14 @@
+name: home-hub
+
+# Every Home Hub component, deployed as one Portainer stack.
+# Images are built by each component repo's GitHub Action and pulled from GHCR.
+# Values in ${...} come from the stack's environment variables (see .env.example).
+
+services:
+  time-date:
+    image: ghcr.io/appel-home-hub/time-date:latest
+    container_name: time-date
+    restart: unless-stopped
+    environment:
+      MQTT_HOST: ${MQTT_HOST}
+      TZ: ${TZ:-America/Chicago}
