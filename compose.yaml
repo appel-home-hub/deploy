@@ -45,6 +45,16 @@ services:
     environment:
       MQTT_HOST: ${MQTT_HOST}
 
+  firebase:
+    image: ghcr.io/appel-home-hub/firebase:latest
+    container_name: firebase
+    restart: unless-stopped
+    environment:
+      MQTT_HOST: ${MQTT_HOST}
+      FIREBASE_CONFIG_URL: ${FIREBASE_CONFIG_URL}
+      FIREBASE_SERVICE_ACCOUNT: ${FIREBASE_SERVICE_ACCOUNT}
+      FIREBASE_DATABASE_URL: ${FIREBASE_DATABASE_URL}
+
   radio-frequency:
     image: ghcr.io/appel-home-hub/radio-frequency:latest
     container_name: radio-frequency
