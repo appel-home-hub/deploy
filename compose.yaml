@@ -38,6 +38,13 @@ services:
     environment:
       MQTT_HOST: ${MQTT_HOST}
 
+  counters:
+    image: ghcr.io/appel-home-hub/counters:latest
+    container_name: counters
+    restart: unless-stopped
+    environment:
+      MQTT_HOST: ${MQTT_HOST}
+
   radio-frequency:
     image: ghcr.io/appel-home-hub/radio-frequency:latest
     container_name: radio-frequency
