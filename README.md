@@ -58,7 +58,7 @@ Set these on the Portainer stack. Nothing secret is committed here. See `.env.ex
           packages: write
     ```
 
-2. Push. Once the Action is green, `ghcr.io/appel-home-hub/<component>` exists.
+2. Push. Once the Action is green, `ghcr.io/appel-home-hub/<component>` exists. The first push creates the package as **private**: open it under the org's **Packages** tab → **Package settings** → **Change visibility** → **Public**.
 3. Add a service to `compose.yaml` here, using `image: ghcr.io/appel-home-hub/<component>:latest`, plus any new env vars in `.env.example`, the table above, and the Portainer stack.
 4. In Portainer, choose **Pull and redeploy**.
 5. Stop the old container in the legacy `components/` project.
@@ -71,19 +71,32 @@ To make updates automatic later, add a Portainer stack webhook and call it from 
 
 ## One-time setup
 
+Everything here is public: this repo, `mqtt-client`, and the GHCR images. That means Portainer needs no tokens or registry entries. Secrets never go into images or this repo; they live in the Portainer stack's environment variables.
+
 1. **Make `appel-home-hub/mqtt-client` public**, so Actions can check out the submodule without a token.
-2. **Share the workflow:** in this repo, go to Settings → Actions → General → Access and choose *Accessible from repositories in the 'appel-home-hub' organization*.
-3. **Portainer registry:** go to Registries → Add registry → GitHub Container Registry. Use your GitHub username and a **classic** PAT with only the `read:packages` scope; GHCR doesn't accept fine-grained tokens for pulling.
-4. **Portainer stack:** go to Stacks → Add stack → Repository.
+2. **Make this repo public**, so Portainer can read `compose.yaml` and every component can call the shared workflow.
+3. **Portainer stack:** go to Stacks → Add stack → Repository.
+    - Name: `home-hub`
     - Repository URL: `https://github.com/appel-home-hub/deploy`
-    - Compose path: `compose.yaml`
-    - Authentication: a fine-grained PAT with Contents: read on this repo
+    - Repository reference: `refs/heads/master`
+    - Compose path: `compose.yaml` (Portainer defaults to `docker-compose.yml`)
+    - Authentication: off
     - Environment variables: from the table above
+
+### Troubleshooting
+
+| Error | Cause |
+| --- | --- |
+| `error from registry: denied` | The package is still private, **or** Portainer has a stale `ghcr.io` registry entry. GHCR rejects bad credentials even for public images, so delete any GitHub or `ghcr.io` entries under Registries. |
+| `open .../compose.yml: no such file or directory` | The compose path is wrong. It must be `compose.yaml`. |
+| `Object not found inside the database (bucket=git_credentials …)` | The form references a deleted saved Git credential. Reload the page and leave Authentication off. |
+| `workflow was not found` (in a component's Actions run) | This repo isn't public, or isn't shared with the org's repos. |
 
 ## Run the stack locally
 
+Only do this while the server stack is stopped. Otherwise two copies of each component publish to the broker.
+
 ```bash
 cp .env.example .env
-docker login ghcr.io          # username + classic PAT with read:packages
 docker compose up -d
 ```
