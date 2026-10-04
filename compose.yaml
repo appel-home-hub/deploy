@@ -12,3 +12,14 @@ services:
     environment:
       MQTT_HOST: ${MQTT_HOST}
       TZ: ${TZ:-America/Chicago}
+
+  weather:
+    image: ghcr.io/appel-home-hub/weather:latest
+    container_name: weather
+    restart: unless-stopped
+    environment:
+      MQTT_HOST: ${MQTT_HOST}
+      TZ: ${TZ:-America/Chicago}
+      OPENWEATHER_API_KEY: ${OPENWEATHER_API_KEY}
+      LATITUDE: ${LATITUDE}
+      LONGITUDE: ${LONGITUDE}

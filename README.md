@@ -34,7 +34,9 @@ Set these on the Portainer stack. Nothing secret is committed here. See `.env.ex
 | Variable | Used by | Example |
 | --- | --- | --- |
 | `MQTT_HOST` | all components | `mqtt://192.168.1.9:1883` |
-| `TZ` | time-date | `America/Chicago` |
+| `TZ` | time-date, weather | `America/Chicago` |
+| `OPENWEATHER_API_KEY` | weather | your One Call 3.0 key (secret) |
+| `LATITUDE`, `LONGITUDE` | weather | home coordinates (kept out of this public repo) |
 
 ## Adding a component
 
