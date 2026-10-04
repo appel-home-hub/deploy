@@ -30,3 +30,23 @@ services:
     restart: unless-stopped
     environment:
       MQTT_HOST: ${MQTT_HOST}
+
+  radio-frequency:
+    image: ghcr.io/appel-home-hub/radio-frequency:latest
+    container_name: radio-frequency
+    restart: unless-stopped
+    environment:
+      MQTT_HOST: ${MQTT_HOST}
+      RF_COMMANDS_URL: ${RF_COMMANDS_URL}
+      # one line per env: reference in the RF config gist
+      RF_SHOPVAC1: ${RF_SHOPVAC1}
+      RF_SHOPVAC2: ${RF_SHOPVAC2}
+      RF_XMASLIGHTS: ${RF_XMASLIGHTS}
+      RF_OFFICELIGHTS: ${RF_OFFICELIGHTS}
+      RF_FIREPLACE: ${RF_FIREPLACE}
+      RF_BACKDOOR1: ${RF_BACKDOOR1}
+      RF_BACKDOOR2: ${RF_BACKDOOR2}
+      RF_BASEMENTLIGHTS: ${RF_BASEMENTLIGHTS}
+      RF_SERVERLIGHT: ${RF_SERVERLIGHT}
+      RF_WORKBENCHLIGHT: ${RF_WORKBENCHLIGHT}
+      RF_MOTORCYCLE: ${RF_MOTORCYCLE}
