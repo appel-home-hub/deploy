@@ -31,6 +31,13 @@ services:
     environment:
       MQTT_HOST: ${MQTT_HOST}
 
+  zigbee:
+    image: ghcr.io/appel-home-hub/zigbee:latest
+    container_name: zigbee
+    restart: unless-stopped
+    environment:
+      MQTT_HOST: ${MQTT_HOST}
+
   radio-frequency:
     image: ghcr.io/appel-home-hub/radio-frequency:latest
     container_name: radio-frequency
