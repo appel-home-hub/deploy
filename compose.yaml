@@ -55,6 +55,18 @@ services:
       FIREBASE_SERVICE_ACCOUNT: ${FIREBASE_SERVICE_ACCOUNT}
       FIREBASE_DATABASE_URL: ${FIREBASE_DATABASE_URL}
 
+  ecobee:
+    image: ghcr.io/appel-home-hub/ecobee:latest
+    container_name: ecobee
+    restart: unless-stopped
+    environment:
+      MQTT_HOST: ${MQTT_HOST}
+      ECOBEE_API_KEY: ${ECOBEE_API_KEY}
+      ECOBEE_REFRESH_TOKEN: ${ECOBEE_REFRESH_TOKEN}
+    volumes:
+      # keeps the latest (rotated) refresh token across redeploys
+      - ecobee-data:/data
+
   radio-frequency:
     image: ghcr.io/appel-home-hub/radio-frequency:latest
     container_name: radio-frequency
@@ -74,3 +86,7 @@ services:
       RF_SERVERLIGHT: ${RF_SERVERLIGHT}
       RF_WORKBENCHLIGHT: ${RF_WORKBENCHLIGHT}
       RF_MOTORCYCLE: ${RF_MOTORCYCLE}
+
+# named volumes survive Pull and redeploy; only deleting the volume itself removes them
+volumes:
+  ecobee-data:

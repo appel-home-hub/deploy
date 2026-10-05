@@ -40,6 +40,8 @@ Set these on the Portainer stack. Nothing secret is committed here. See `.env.ex
 | `FIREBASE_CONFIG_URL` | firebase | raw URL of the firebase config gist |
 | `FIREBASE_SERVICE_ACCOUNT` | firebase | service account key JSON on one line (secret) |
 | `FIREBASE_DATABASE_URL` | firebase | Realtime Database URL |
+| `ECOBEE_API_KEY` | ecobee | Ecobee developer API key (secret) |
+| `ECOBEE_REFRESH_TOKEN` | ecobee | initial refresh token; after the first start the container uses the rotated one saved in its `ecobee-data` volume (secret) |
 | `RF_COMMANDS_URL` | radio-frequency | raw URL of the secret RF config gist (secret) |
 | `RF_*` | radio-frequency | one RF code per `env:` reference in that gist (secret) |
 
