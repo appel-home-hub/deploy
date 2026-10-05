@@ -67,6 +67,14 @@ services:
       # keeps the latest (rotated) refresh token across redeploys
       - ecobee-data:/data
 
+  broadlink:
+    image: ghcr.io/appel-home-hub/broadlink:latest
+    container_name: broadlink
+    restart: unless-stopped
+    environment:
+      MQTT_HOST: ${MQTT_HOST}
+      BROADLINK_CONFIG_URL: ${BROADLINK_CONFIG_URL}
+
   radio-frequency:
     image: ghcr.io/appel-home-hub/radio-frequency:latest
     container_name: radio-frequency
