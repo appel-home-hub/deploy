@@ -86,6 +86,14 @@ services:
       # adb's key pair; each device approves it once
       - adb-keys:/root/.android
 
+  alexa:
+    image: ghcr.io/appel-home-hub/alexa:latest
+    container_name: alexa
+    restart: unless-stopped
+    environment:
+      MQTT_HOST: ${MQTT_HOST}
+      ALEXA_CONFIG_URL: ${ALEXA_CONFIG_URL}
+
   radio-frequency:
     image: ghcr.io/appel-home-hub/radio-frequency:latest
     container_name: radio-frequency
