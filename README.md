@@ -43,6 +43,7 @@ Set these on the Portainer stack. Nothing secret is committed here. See `.env.ex
 | `ECOBEE_API_KEY` | ecobee | Ecobee developer API key (secret) |
 | `ECOBEE_REFRESH_TOKEN` | ecobee | initial refresh token; after the first start the container uses the rotated one saved in its `ecobee-data` volume (secret) |
 | `BROADLINK_CONFIG_URL` | broadlink | raw URL of the IR config gist |
+| `ADB_CONFIG_URL` | adb-remote | raw URL of the adb devices/apps gist |
 | `RF_COMMANDS_URL` | radio-frequency | raw URL of the secret RF config gist (secret) |
 | `RF_*` | radio-frequency | one RF code per `env:` reference in that gist (secret) |
 

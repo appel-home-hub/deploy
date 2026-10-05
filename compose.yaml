@@ -75,6 +75,17 @@ services:
       MQTT_HOST: ${MQTT_HOST}
       BROADLINK_CONFIG_URL: ${BROADLINK_CONFIG_URL}
 
+  adb-remote:
+    image: ghcr.io/appel-home-hub/adb-remote:latest
+    container_name: adb-remote
+    restart: unless-stopped
+    environment:
+      MQTT_HOST: ${MQTT_HOST}
+      ADB_CONFIG_URL: ${ADB_CONFIG_URL}
+    volumes:
+      # adb's key pair; each device approves it once
+      - adb-keys:/root/.android
+
   radio-frequency:
     image: ghcr.io/appel-home-hub/radio-frequency:latest
     container_name: radio-frequency
@@ -98,3 +109,4 @@ services:
 # named volumes survive Pull and redeploy; only deleting the volume itself removes them
 volumes:
   ecobee-data:
+  adb-keys:
