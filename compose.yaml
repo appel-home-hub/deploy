@@ -94,6 +94,19 @@ services:
       MQTT_HOST: ${MQTT_HOST}
       ALEXA_CONFIG_URL: ${ALEXA_CONFIG_URL}
 
+  plex-webhook:
+    image: ghcr.io/appel-home-hub/plex-webhook:latest
+    container_name: plex-webhook
+    restart: unless-stopped
+    ports:
+      # Plex's webhook and the tablets' now-playing overlay reach it here
+      - "${PLEX_WEBHOOK_PORT:-3030}:3030"
+    environment:
+      MQTT_HOST: ${MQTT_HOST}
+      PLEX_CONFIG_URL: ${PLEX_CONFIG_URL}
+      PLEX_URL: ${PLEX_URL}
+      PLEX_TOKEN: ${PLEX_TOKEN}
+
   radio-frequency:
     image: ghcr.io/appel-home-hub/radio-frequency:latest
     container_name: radio-frequency

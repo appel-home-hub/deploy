@@ -45,6 +45,10 @@ Set these on the Portainer stack. Nothing secret is committed here. See `.env.ex
 | `BROADLINK_CONFIG_URL` | broadlink | raw URL of the IR config gist |
 | `ADB_CONFIG_URL` | adb-remote | raw URL of the adb devices/apps gist |
 | `ALEXA_CONFIG_URL` | alexa | raw URL of the voice intents gist |
+| `PLEX_CONFIG_URL` | plex-webhook | raw URL of the rooms → Plex players gist |
+| `PLEX_URL` | plex-webhook | the Plex server, e.g. `http://<plex-server>:32400` |
+| `PLEX_TOKEN` | plex-webhook | Plex token, for artwork (secret) |
+| `PLEX_WEBHOOK_PORT` | plex-webhook | host port for its webhook and endpoints (default `3030`) |
 | `RF_COMMANDS_URL` | radio-frequency | raw URL of the secret RF config gist (secret) |
 | `RF_*` | radio-frequency | one RF code per `env:` reference in that gist (secret) |
 
